@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+{% load static %}
+<!--model css-->
+  <div class="container">
+    <a style="margin-left: 50px;">
+      <a href="/add"><img style="width:60px;" src="{% static 'icons/add.png' %}"></a>
+
+    <table class="table border" style="width:1155px">
+    <thead class="thead-dark">
+        <tr>
+        <th style="text-align:center" scope="col">સભાસદ નંબર</th>
+      <th style="text-align:center" scope="col">ફોટો</th>
+      <th style="text-align:center" scope="col">નામ</th>
+      <th style="text-align:center" scope="col">પીતાનું નામ</th>
+      <th style="text-align:center" scope="col">દાદા નું નામ</th>
+      <th style="text-align:center" scope="col">અટક</th>
+      <th style="text-align:center" scope="col">સરનામું</th>
+      <th style="text-align:center" scope="col">મોબાઇલ</th>
+      <th style="text-align:center" scope="col">ઇ-મેઈલ</th>
+      <th style="text-align:center" scope="col">પીતાનું સભાસદ નંબર</th>
+      <th style="text-align:center" scope="col">શૈક્ષણિક લાયકાત</th>
+      <th style="text-align:center" scope="col">સુધારો</th>
+      <th style="text-align:center" scope="col">કાઢી નાખો</th>
+    </tr>
+
+  </thead>
+
+
+  <tbody class="border-bottom">
+
+
+    {% for i in personlist %}
+
+    <tr>
+      <th scope="row">{{i.registerno}}</th>
+        <td><img style="width:40px;" src="/media/{{i.image}}"></td>
+      <td>{{i.first_name}}</td>
+      <td>{{i.last_name}}</td>
+      <td>{{i.g_father}}</td>
+      <td>{{i.sername}}</td>
+      <td>{{i.address}}</td>
+      <td>{{i.phone}}</td>
+      <td>{{i.email}}</td>
+      <td>{{i.father_registerno}}</td>
+      <td>{{i.qualification}}</td>
+      <td>
+        <a href="/edit/{{i.id}}">
+          <button type="submit" class="btn">
+             <img class="img-fluid"  style="width:20px; "  src="{% static 'icons/edit.svg' %}">
+          </button>
+        </a>
+      </td>
+       <td>
+         <button onclick="confirm_delete({{i.id}})";  type="submit" class="btn">
+           <a>
+             <img class="img-fluid"  style="width:20px;" src="{% static 'icons/deleteicon.svg' %}">
+           </a>
+         </button>
+       </td>
+    </tr>
+ {% endfor %}
+
+  </tbody>
+
+
+
+</table>
+        {% if message %}
+        <div class="alert alert-warning">
+         <strong>Warning!</strong> {{message}}
+        </div>
+        {% endif %}
+
+
+
+
+<div id="id01" class="modals">
+  <span onclick="document.getElementById('id01').style.display='none'" class="closes" title="Close Modal">&times;</span>
+  <form class="modal-contents" style="box-shadow:0 0 5px 0;">
+    <div class="con">
+      <h1>Delete Account</h1>
+      <p>Are you sure you want to delete your account?</p>
+      <div class="clearfix">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" id="btnCancel" class="button">Cancel</button>
+          <button type="button" onclick="deletePeron()" id="btnDelete" class="button">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+        {% if personlist.has_other_pages %}
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+          {% if personlist.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ personlist.previous_page_nr }}">First</a>
+            </li>
+          {% else %}  
+            <li class="page-item disabled">
+              <a class="page-link" href="?page={{ personlist.previous_page_nr }}">First</a>
+            </li>
+          {% endif %}
+
+
+
+       {% for i in personlist.paginator.page_range %}
+         {% if personlist.number == i %}
+          <li class="page-item disabled" style="colo:#0000"><span class="page-link">{{i}}</span></li>
+         {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ i }}">{{i}}</a></li>
+          {% endif %}
+       {% endfor %}
+        {% if personlist.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ personlist.next_page_number }}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">Next</a>
+        </li>
+        {% endif %}
+          </ul>
+        </nav>
+       {% endif %}
+
+
+
+<!--        model javascrip-->
+
+
+
+<!--        end model-->
+
+        <form id="frmDelete" method="post">
+            {% csrf_token %}
+
+        </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script>
+    function confirm_delete(personId){
+        document.getElementById('id01').style.display='block';
+        document.getElementById('btnDelete').setAttribute("data-personId", personId);
+    }
+    function deletePeron(personId){
+        personId = document.getElementById('btnDelete').getAttribute('data-personId');
+        console.log(personId);
+        path = "/delete/"+personId;
+
+        const frmDelete = document.getElementById('frmDelete');
+        frmDelete.action = path;
+        frmDelete.submit();
+        return false;
+    }
+</script>
+
+        {% endblock %}

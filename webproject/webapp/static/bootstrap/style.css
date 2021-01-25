@@ -1,0 +1,13 @@
+#card1{
+background-color:#28a745; padding:70px;
+}#card2{
+background-color:#fcc130; padding:70px;
+}#card3{
+background-color:#3aa3b9; padding:70px;
+
+.card{
+padding:70px;
+}
+.navbar-brand{
+    margin-left: 20px;
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'model_css/model.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>person detail</title>
+  </head>
+  <body>
+<!--{% static 'list/bootstrap.min.css' %}-->
+<!--  navigationbar-->
+{% if q %}
+<nav class="navbar navbar-dark bg-dark text-white justify-content-between">
+    <a href="/" class="navbar-brand ml-5"><h3>Persons</h3></a><h2>Welcome</h2>
+  <form class="form-inline" action="/search/" method="post">
+        <div class="form-control mr-sm-2">
+        <input style="border:none" type="search" id="query" src="" name="query" value="{{q}}" placeholder="Search" aria-label="Search">
+        <a href="/"><img style="width:20px;" src="{% static 'icons/cancel.svg' %}"></a>
+        </div>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="search">search</button>
+    {% csrf_token %}
+  </form>
+</nav>
+
+
+{% else %}
+
+
+<nav class="navbar navbar-dark bg-dark text-white justify-content-between">
+  <a class="navbar-brand ml-5"><h3>Persons</h3></a><h4>Welcome</h4>
+    <form class="form-inline" action="/search/" method="post">
+        <input class="form-control mr-sm-2" style="border:none" type="search" id="query" src="" name="query" value="{{q}}" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="search">search</button>
+    {% csrf_token %}
+  </form>
+</nav>
+
+
+{% endif %}
+<!--end navigation-->
+
+
+{% block body %}{% endblock %}
+
+
+      <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
+

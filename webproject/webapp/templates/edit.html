@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<meta charset="utf-8">
+		<title>RegistrationForm_v1 by Colorlib</title>
+		<link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/style.css' %}">
+		<!-- STYLE CSS -->
+		<!-- <link rel="stylesheet" href="{% static 'add_form_css/form_style.css' %}"> -->
+	</head>
+    <form action="/imageEdit/{{person.id}}" enctype="multipart/form-data" method="POST">
+	<div class="container mt-4" style="text-align: center;">
+		<img style="border-radius:50px; box-shadow:0px 0px 4px 0px; width:60px;" src="/media/{{person.image}}"/>
+	</div>
+    <div class="container" style="margin-left:615px; color:blue;">
+        <label for="im">Edit</label>
+        <input hidden type="file" name="image" id="im">
+        <label for="button" style="margin-left:20px;">Save</label>
+        <input name="button" id="button" hidden type="submit">
+        {% csrf_token %}
+    </div>
+    </form>
+
+	<div class="container-sm w-50 mt-2 p-4 border">
+		<form action="/edit/{{person.id}}" enctype="multipart/form-data" method="POST">
+			<div class="row">
+				<div class="col col-sm-6">
+				  <label>સભાસદ નંબર </label>
+				  <input type="text" class="form-control"  id="reg_no" name="reg_no" value="{{person.registerno}}">
+				</div>
+				<div class="col col-sm-6">
+					<label>પીતાનું સભાસદ નંબર</label>
+					<input type="text" class="form-control" id="Frno" name="Frno" value="{{person.registerno}}">
+				</div>
+			  </div>
+			  <div class="row mt-2">
+				<div class="col col-sm-6">
+				  <label>નામ </label>
+				  <input type="text" class="form-control"  id="first_name" name="first_name" value="{{person.first_name}}">
+				</div>
+				<div class="col col-sm-6">
+					<label>પીતાનું નામ </label>
+					<input type="text" class="form-control" id="last_name" name="last_name" value="{{person.last_name}}">
+				</div>
+			  </div>
+			  <div class="row mt-2">
+				<div class="col col-sm-6">
+				  <label>અટક </label>
+				  <input type="text" class="form-control"  id="sername" name="sername" value="{{person.sername}}">
+				</div>
+				<div class="col col-sm-6">
+					<label>દાદા નું નામ </label>
+					<input type="text" class="form-control" id="grand-fathername" name="grand-fathername" value="{{person.g_father}}">
+				  </div>
+			  </div>
+			  <div class="form-group mt-2">
+				<label>સરનામું</label>
+				<input type="text" class="form-control" id="address" name="address" value="{{person.address}}">
+			  </div>
+			  <div class="form-group">
+				<label>મોબાઇલ </label>
+				<input type="text" class="form-control" id="phone" name="phone" value="{{person.phone}}">
+			  </div>
+			  <div class="form-group">
+				<label>શૈક્ષણિક લાયકાત </label>
+				<input type="text" class="form-control" id="qlu" name="qlu" value="{{person.qualification}}">
+			  </div>
+
+		   <div class="form-group">
+			 <label>ઇ-મેઈલ</label>
+			 <input type="email" class="form-control" id="email" name="email" value="{{person.email}}">
+		   </div>
+
+
+			<div class="container">
+				<button class="btn btn-dark m-4">Save</button>
+				<a class="btn btn-dark m-4" href="/customer_list">Cancel</a>
+			</div>
+			{% csrf_token %}
+		</form>
+	  </div>
+</html>
+
+
+
+
+<!-- end document-->
